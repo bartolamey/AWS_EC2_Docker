@@ -56,7 +56,8 @@ os.system('chmod 400 ' + keypair_name)
 os.system(ssh_connect)
 
 #---------------Отправка сообщения-------------------------------------------------
-yag = yagmail.SMTP('bartolamey', 'pass')
+yag = yagmail.SMTP('bartolamey', 'you_pass')
+
 contents_success = [
     'Ваша виртуальная машина создана!',
     'ID виртуальной машины '  + instance_id,
@@ -72,7 +73,7 @@ contents_fail = [
     'Обратитесь к вашему DevOPS специалисту'
 ]
 
-os.system('ssh -i ' + keypair_name + ' ubuntu@' + instance_dns +  " 'systemctl is-active docker' >> status.log")
+os.system('ssh -i ' + keypair_name + ' -oStrictHostKeyChecking=no' + ' ubuntu@' + instance_dns +  " 'systemctl is-active docker' >> status.log")
 
 log_status = open("status.log")
 
@@ -81,12 +82,10 @@ if log_status.read(6) == 'active':
 	yag.send('7987575@gmail.com', 'Install EC2', contents_success)
 	time.sleep(2)
 else: 
-	print("else")
+	print("Ошибка, обратитесь к DevOPS")
 	yag.send('7987575@gmail.com', 'Install EC2', contents_fail)
 	time.sleep(2)
 
-
-
-
-
-
+log_status.close()
+os.remove('status.log')
+os.remove(keypair_name)
