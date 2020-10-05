@@ -7,7 +7,7 @@ import yagmail
 import datetime
 
 #---------------переменные------------------------------------------------------------------------------------------
-email_send = '7987575@gmail.com'							                     #---------Почта запустившего скрипт
+email_send = '7987575@gmail.com'				                 #---------Почта запустившего скрипт
 to_day = datetime.datetime.today().strftime("%d.%m.%Y_")
 
 #---------------Key pairs-------------------------------------------------------------------------------------------
@@ -22,12 +22,12 @@ time.sleep(1)
 #---------------Создание EC2----------------------------------------------------------------------------------------
 print('Создаём новую ВМ')
 instance = ec2.create_instances(
- ImageId		  = 'ami-0d5d9d301c853a04a',							        #--------------------------Образ ОС
- MinCount         = 1,				                      				        #-----------------------CPU Cor Min
- MaxCount         = 1,													        #---------------------------CPU Max
- InstanceType     = 't2.micro',							   		                #---------------------Type instance
- KeyName          = keypair_name,										        #-------------------------Key pairs
- SecurityGroupIds = ['sg-0d120c0f9e4b92260'] 				                    #--------------- -Доступ по SSH (22)
+ ImageId		  = 'ami-0d5d9d301c853a04a',		                 #--------------------------Образ ОС
+ MinCount         = 1,				                      	         #-----------------------CPU Cor Min
+ MaxCount         = 1,							         #---------------------------CPU Max
+ InstanceType     = 't2.micro',						         #---------------------Type instance
+ KeyName          = keypair_name,					         #-------------------------Key pairs
+ SecurityGroupIds = ['sg-0d120c0f9e4b92260'] 				         #--------------- -Доступ по SSH (22)
 )
 time.sleep(1)
 
@@ -35,7 +35,7 @@ time.sleep(1)
 instance_id = instance[0].id                                                    #--------------------------------id
 print ('ID виртуальной машины ' + instance_id)
 time.sleep(1)
-instance[0].wait_until_running()	 				                            #------------Ожидание готовности ВМ
+instance[0].wait_until_running()	 				        #------------Ожидание готовности ВМ
 instance[0].load()                                                              #--------------Ожидание загрузки ВМ
 instance_dns  = instance[0].public_dns_name                                     #-------------------------------ДНС
 print ("DNS виртуальной машины " + instance_dns)
