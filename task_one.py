@@ -8,12 +8,12 @@ import datetime
 
 #---------------переменные------------------------------------------------------------------------------------------
 email_send = '7987575@gmail.com'				                 #---------Почта запустившего скрипт
-to_day = datetime.datetime.today().strftime("%d.%m.%Y_")
+to_day     = datetime.datetime.today().strftime("%d.%m.%Y_")
 
 #---------------Key pairs-------------------------------------------------------------------------------------------
-keypair_name = to_day + email_send + '.pem'
+keypair_name     = to_day + email_send + '.pem'
 ec2 		 = boto3.resource('ec2')
-new_keypair  = ec2.create_key_pair(KeyName=keypair_name)
+new_keypair      = ec2.create_key_pair(KeyName=keypair_name)
 with open(keypair_name, 'w') as file:
     file.write(new_keypair.key_material)
 print('Создаём новый ключ доступа: ' + keypair_name)
@@ -22,7 +22,7 @@ time.sleep(1)
 #---------------Создание EC2----------------------------------------------------------------------------------------
 print('Создаём новую ВМ')
 instance = ec2.create_instances(
- ImageId		  = 'ami-0d5d9d301c853a04a',		                 #--------------------------Образ ОС
+ ImageId	  = 'ami-0d5d9d301c853a04a',		   	                 #--------------------------Образ ОС
  MinCount         = 1,				                      	         #-----------------------CPU Cor Min
  MaxCount         = 1,							         #---------------------------CPU Max
  InstanceType     = 't2.micro',						         #---------------------Type instance
